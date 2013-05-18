@@ -1,2 +1,7 @@
 *.pyc
 bin/*
+.*
+develop-eggs/*
+download_cache/*
+eggs/*
+parts/*

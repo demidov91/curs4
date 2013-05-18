@@ -1,0 +1,11 @@
+setup.py
+curs/curs/__init__.py
+curs/curs/settings.py
+curs/curs/urls.py
+curs/curs/wsgi.py
+curs/curs.egg-info/PKG-INFO
+curs/curs.egg-info/SOURCES.txt
+curs/curs.egg-info/dependency_links.txt
+curs/curs.egg-info/not-zip-safe
+curs/curs.egg-info/requires.txt
+curs/curs.egg-info/top_level.txt
