@@ -1,1 +1,4 @@
+userpart
+clientpart
 curs
+registration

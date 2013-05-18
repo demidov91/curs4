@@ -1,0 +1,28 @@
+{% extends 'user_base.html' %}
+
+{% block body %}
+
+
+<form method="POST" class="form-horizontal" id="login-form">
+    {% csrf_token %}
+    <div class="control-group">
+        <label class="control-label" for="inputEmail">{{form.username.label}}</label>
+        <div class="controls">
+            <div>
+                <input type="text" id="inputEmail" placeholder="Email" name="{{form.username.html_name}}" {% if form.username.value %}value="{{form.username.value}}"{% endif %} />
+            </div>            
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputPassword">{{ form.password.label }}</label>
+        <div class="controls">
+            <input type="password" id="inputPassword" placeholder="Password" name="{{form.password.html_name}}" {% if form.password.value %}value="{{form.password.value}}"{% endif %}>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn">Sign in</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

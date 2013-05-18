@@ -1,4 +1,9 @@
 setup.py
+curs/clientpart/__init__.py
+curs/clientpart/models.py
+curs/clientpart/tests.py
+curs/clientpart/urls.py
+curs/clientpart/views.py
 curs/curs/__init__.py
 curs/curs/development.py
 curs/curs/production.py
@@ -10,3 +15,14 @@ curs/curs.egg-info/dependency_links.txt
 curs/curs.egg-info/not-zip-safe
 curs/curs.egg-info/requires.txt
 curs/curs.egg-info/top_level.txt
+curs/registration/__init__.py
+curs/registration/models.py
+curs/registration/tests.py
+curs/registration/urls.py
+curs/registration/views.py
+curs/userpart/__init__.py
+curs/userpart/models.py
+curs/userpart/tests.py
+curs/userpart/urls.py
+curs/userpart/utils.py
+curs/userpart/views.py

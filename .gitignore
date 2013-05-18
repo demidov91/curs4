@@ -5,3 +5,6 @@ develop-eggs/*
 download_cache/*
 eggs/*
 parts/*
+curs/curs/media/uploads/campaign_images/*
+curs/curs/media/static/*
+*~

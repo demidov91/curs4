@@ -1,6 +1,6 @@
 
-from django.conf.urls.defaults import *
 from django.conf import settings
+from django.conf.urls import patterns, url, include
 
 from django.contrib import admin
 admin.autodiscover()
@@ -13,11 +13,10 @@ urlpatterns = patterns('',
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     (r'^admin/', include(admin.site.urls)),
+    (r'^auth/', include('registration.urls')),
+    (r'^advert/', include('userpart.urls')),
+    (r'^manage/', include('clientpart.urls')),
+    url(r'^$', 'registration.views.login', name="index"),
 )
 
-if settings.DEBUG:
-    urlpatterns += patterns('',
-        (r'^media/(?P<path>.*)$', 'django.views.static.serve',
-         {'document_root': settings.MEDIA_ROOT}),
-    )
 
