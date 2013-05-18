@@ -16,5 +16,7 @@ setup(
   install_requires=[
     'django == 1.5.1',
     'neomodel',
+    'psycopg2',
+    'south',
   ]
 )
