@@ -1,0 +1,14 @@
+{% extends 'client_base.html' %}
+
+
+{% block set_active_new_campaign %}active{% endblock %}
+
+{% block body_content %}
+<form method="POST" id="create-campaign-form" enctype="multipart/form-data">
+    {{form}}
+    <div class="middle-inline-block">
+        <input type="submit" />
+    </div>
+    {% csrf_token %}
+</form>
+{% endblock %}

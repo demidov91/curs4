@@ -15,7 +15,7 @@
     <div class="container">
         <ul class="nav pull-left">
             <li class="{% block set_active_campaigns %}{% endblock set_active_campaigns %}">
-                <a href="#">Campaigns</a>
+                <a href="{% url 'client_index' %}">Campaigns</a>
             </li>
             <li class="{% block set_active_new_campaign %}{% endblock set_active_new_campaign %}"><a href="{% url 'create_new_campaign' %}">New campaign</a></li>
             <li class="{% block set_active_contacts %}{% endblock set_active_contacts %}"><a href="{% url 'contacts' %}">Contacts</a></li>

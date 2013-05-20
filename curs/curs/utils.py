@@ -1,9 +1,11 @@
 import neomodel
+from py2neo import neo4j
 from openpyxl import load_workbook
 
 from django.contrib.auth.models import User
 from django.core.validators import email_re
 from django.forms import ValidationError
+from django.conf import settings
 
 from registration.utils import get_profile, create_connections
 from registration.models import Userprofile
@@ -56,6 +58,8 @@ class FileEmailParser(AbstractContactsParser):
         workbook = load_workbook(request.FILES['emails'])
         self.emails = tuple(row[0].value for row in workbook.get_active_sheet().rows)
         logger.warn(self.emails)
+        
+graph_db = neo4j.GraphDatabaseService(settings.NEO4J_REST_URL)
             
    
             

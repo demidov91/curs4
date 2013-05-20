@@ -3,7 +3,7 @@
 
 import os
 SETTINGS_DIR = os.path.abspath(os.path.dirname(__file__))
-#os.environ['NEO4J_REST_URL'] = 
+NEO4J_REST_URL = 'http://localhost:7474/db/data/'
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),

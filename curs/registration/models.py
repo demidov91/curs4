@@ -51,10 +51,6 @@ class Userprofile(StructuredNode):
         finally:
             self.get_set_client_lock().release()
     
-    @classmethod    
-    def get_create_lock(cls, username):
-        return cls._create_locks.setdefault(username, Lock())  
-    
     def get_set_client_lock(self):
         return self._set_client_locks.setdefault(self, Lock())  
     
