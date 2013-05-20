@@ -4,6 +4,6 @@ from views import *
 
 
 urlpatterns = patterns('',
-    
+    url(r'^$', logout, name="logout"),
     
 )

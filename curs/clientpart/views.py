@@ -1,2 +1,5 @@
+from django.shortcuts import render
+
+
 def index(request):
-    return render(request, 'client_idnex', {})
+    return render(request, 'all_campaigns.html', {})

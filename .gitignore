@@ -8,3 +8,4 @@ parts/*
 curs/curs/media/uploads/campaign_images/*
 curs/curs/media/static/*
 *~
+curs/curs/logs/*

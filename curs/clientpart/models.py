@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.conf import settings
 import datetime
 import os
@@ -17,7 +16,7 @@ class ActiveCampaignManager(models.Manager):
 
 
 class Campaign(models.Model):
-    client = models.ForeignKey(User, related_name="campaigns")
+    client = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="campaigns")
     actives = ActiveCampaignManager()
     startdate = models.DateField('Campaign Start Date', default=datetime.date.today, db_index=True)
     finishdate = models.DateField('Campaign Start Date', db_index=True)

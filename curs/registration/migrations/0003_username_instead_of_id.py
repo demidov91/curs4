@@ -3,19 +3,22 @@ import datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
-from registration.models import Userprofile
-from py2neo.neo4j import WriteBatch
 
+from registration.models import Userprofile
 
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        data = list(dict(user_id=user.id, is_client=False) for user in orm['auth.User'].objects.filter(is_staff=False))
-        Userprofile.create(*data)
+        profiles = Userprofile.category().instance.all()
+        for profile in profiles:
+            profile.username = orm['auth.User'].objects.get(id=profile.user_id).username
+            profile.save()
 
     def backwards(self, orm):
-        for user in Userprofile.category().instance.all():
-            user.delete()
+        profiles = Userprofile.category().instance.all()
+        for profile in profiles:
+            profile.user_id = orm['auth.User'].objects.get(username=profile.username).id
+            profile.save()
 
     models = {
         'auth.group': {

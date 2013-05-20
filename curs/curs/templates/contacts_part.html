@@ -1,0 +1,6 @@
+{% for user in contacts %}
+<div class="contact">
+    <span class="pull-left">{{user.username}}</span>
+    <button class="btn btn-danger pull-right" data-username="{{user.username}}">Delete</button>
+</div>    
+{% endfor %}

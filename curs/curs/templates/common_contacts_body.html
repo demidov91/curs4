@@ -1,0 +1,43 @@
+<div class="pull-left">
+    <div id="contacts">
+    {% include 'contacts_part.html' %}
+    </div>
+</div>
+<div class="pull-left">
+    {% if errors %}
+        <div class="alert alert-error">
+        {{ errors }}
+        </div>
+    {% endif %}
+    <form class="form-horizontal" method="POST">
+    {% csrf_token %}
+        <div class="control-group">
+            <label class="control-label" for="inputEmails">Emails</label>
+            <div class="controls">
+                <textarea name="emails" id="inputEmails" placeholder="Emails line by line.">{{text_emails}}</textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" />
+            </div>
+        </div>
+        <input type="hidden" name="data_type" value="text" />
+    </form>
+    <form class="form-horizontal" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <div class="control-group">
+            <label class="control-label" for="inputEmails">File</label>
+            <div class="controls">
+                <input type="file" name="emails" />
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" />
+            </div>
+        </div>
+        <input type="hidden" name="data_type" value="file" />
+    </form>    
+</div>
+<div class="clear"></div>

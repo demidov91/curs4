@@ -18,5 +18,6 @@ setup(
     'neomodel',
     'psycopg2',
     'south',
+    'openpyxl',
   ]
 )

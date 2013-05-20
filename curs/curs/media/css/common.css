@@ -1,0 +1,5 @@
+.contact button{opacity:0.2;}
+.contact:hover button{opacity:1.0;}
+.contact span{line-height: 2em;margin-right:0.5em;}
+.contact{height:3em;}
+#contacts{margin: 0.2em 2em;}
