@@ -9,3 +9,5 @@ curs/curs/media/uploads/campaign_images/*
 curs/curs/media/static/*
 *~
 curs/curs/logs/*
+curs/curs/production.py
+curs/curs/development.py

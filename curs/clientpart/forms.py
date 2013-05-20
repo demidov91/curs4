@@ -16,6 +16,8 @@ logger = logging.getLogger(__name__)
 
 class ContactsField(forms.MultipleChoiceField):
     def validate(self, value):
+        if len(value) == 0:
+            raise ValidationError('Choose one contact at least.')
         for email in value:
             if not email_re.match(email):
                 raise ValidationError('Incorrect choice.')
@@ -44,8 +46,8 @@ class CampaignForm(forms.ModelForm):
     contacts = ContactsField()
         
     def save(self, *args, **kwargs):
-        campaign = super(CampaignForm, self).save()
         try:
+            campaign = super(CampaignForm, self).save()
             campaign.set_contacts(self.cleaned_data['contacts'])
         except Exception as e:
             logger.error(e)

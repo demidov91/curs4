@@ -6,6 +6,7 @@ import os
 
 from curs.utils import graph_db
 from py2neo.neo4j import WriteBatch, Node
+from py2neo.rest import ResourceNotFound
 
 import logging
 logger = logging.getLogger(__name__)
@@ -27,8 +28,8 @@ class Campaign(models.Model):
     description = models.TextField(default='')
     client = models.ForeignKey(User, related_name="campaigns")    
     startdate = models.DateField('Campaign Start Date', default=datetime.date.today, db_index=True)
-    finishdate = models.DateField('Campaign Start Date', db_index=True)
-    picture = models.ImageField(upload_to=os.path.join(settings.PUBLIC_UPLOAD_DIR, 'capaign_images'), null=True, blank=True)
+    finishdate = models.DateField('Campaign Finish Date', db_index=True)
+    picture = models.ImageField(upload_to='uploads/campaign_images', max_length=255, null=True, blank=True)
     salary = models.PositiveIntegerField(default=0)
     gift = models.PositiveIntegerField(default=0)
     was_launched = models.BooleanField(default=False)
@@ -74,7 +75,15 @@ class Campaign(models.Model):
         super(Campaign, self).save(*args, **kwargs)
         if is_new:
             index = graph_db.get_index(Node, self.nodes_index_name)
-            node = index.create('id', str(self.id), {'campaign_id': str(self.id)})  
+            node = index.create('id', str(self.id), {'campaign_id': self.id})  
             logger.warn(node)   
+            
+    def delete(self, *args, **kwargs):
+        batch = WriteBatch(graph_db)
+        node = self.get_node()
+        for rel in node.get_relationships():
+            batch.delete_relatioship(rel)
+        batch.delete_node(node)
+        super(Campaign, self).delete(*args, **kwargs)
     
 

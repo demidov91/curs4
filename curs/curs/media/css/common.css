@@ -3,5 +3,5 @@
 .contact span{line-height: 2em;margin-right:0.5em;}
 .contact{height:3em;}
 #contacts{margin: 0.2em 2em;}
-
+.clear{clear:both;}
 .errorlist li{color:red;}

@@ -3,4 +3,11 @@
 #create-campaign-form .middle-inline-block{text-align:center;}
 #create-campaign-form>ul{list-style:none;}
 #campaign-info, #campaigns-list{margin:2em;}
+#campaign-info{min-width:40em;}
+.campaign{cursor: pointer;padding: 0.5em;margin:0.5em 0;border-radius:0.3em;border:1px solid #E5E5E5;}
+.campaign:hover{background-color:#F5F5F5;}
+#campaign-info .picture{width:50%; margin:0 1em 1em 0;}
+#campaign-info .start-finish{margin-top:2em;}
+#campaign-info .contacts-list{margin:0em 3em 0em 2em;}
+#campaign-info .contacts-area{margin:2em;}
 

@@ -1,4 +1,28 @@
-{% for contact in contacts %}
-<div>{{contact}}</div>
-{% endfor%}
-<a class="btn" href="{% url 'export_campaign' campaign_id=campaign.id %}">Export as xlsx<a>
+<h1>{{campaign.title}}</h1>
+{% if campaign.picture %}
+<img class="pull-left picture" src="{{campaign.picture.url}}" />
+{% endif %}
+<div class="pull-left" class="description">{{campaign.description}}</div>
+<div class="clear"></div>
+<div class="start-finish">
+    <div class="pull-left">
+        <span>From </span>{{campaign.startdate}}
+    </div>
+    <div class="pull-right">
+        <span>Till </span>{{campaign.finishdate}}
+    </div>
+</div>
+<div class="clear"></div>
+<div class="contacts-area">
+    <div class="pull-left contacts-list">
+    {% for contact in contacts %}
+    <div>{{contact}}</div>
+    {% endfor%}
+    </div>
+    {% if contacts %}
+    <div class="pull-left">
+        <a class="btn" href="{% url 'export_campaign' campaign_id=campaign.id %}">Export as xlsx<a>
+    </div>
+    {% endif %}
+</div>
+<div class="clear"></div>
