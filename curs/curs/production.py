@@ -1,2 +1,0 @@
-
-from curs.settings import *
