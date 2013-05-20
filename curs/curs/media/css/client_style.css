@@ -2,3 +2,5 @@
 #create-campaign-form input[type='submit']{display: inline; }
 #create-campaign-form .middle-inline-block{text-align:center;}
 #create-campaign-form>ul{list-style:none;}
+#campaign-info, #campaigns-list{margin:2em;}
+

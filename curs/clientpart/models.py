@@ -43,7 +43,8 @@ class Campaign(models.Model):
     
     def get_node(self):
         index = graph_db.get_index(Node, self.nodes_index_name)
-        index.get('id', str(self.id))
+        return index.get('id', str(self.id))[0]
+        
         
         
     def set_contacts(self, profiles):
@@ -54,13 +55,15 @@ class Campaign(models.Model):
         batch = WriteBatch(graph_db)
         for profile in profiles:
             batch.get_or_create_relationship(me, self.contact_relationship, profile.__node__)
-        batch.submit()
+        r = batch.submit()
+        logger.warn(r)
         
     def get_contacts(self):
         """
         Returns a list of related usernames (str). 
         """
-        return tuple(profile_node['username'] for profile_node in self.get_node().get_related_nodes(self.contact_relationship))
+        logger.warn(tuple(profile_node['username'] for profile_node in self.get_node().get_related_nodes(0, self.contact_relationship)))
+        return tuple(profile_node['username'] for profile_node in self.get_node().get_related_nodes(0, self.contact_relationship))
         
     
     def save(self, *args, **kwargs):
@@ -71,6 +74,7 @@ class Campaign(models.Model):
         super(Campaign, self).save(*args, **kwargs)
         if is_new:
             index = graph_db.get_index(Node, self.nodes_index_name)
-            index.create('id', self.id, {'campaign_id': str(self.id)})     
+            node = index.create('id', str(self.id), {'campaign_id': str(self.id)})  
+            logger.warn(node)   
     
 

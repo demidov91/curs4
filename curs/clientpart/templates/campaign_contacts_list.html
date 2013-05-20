@@ -1,0 +1,4 @@
+{% for contact in contacts %}
+<div>{{contact}}</div>
+{% endfor%}
+<a class="btn" href="{% url 'export_campaign' campaign_id=campaign.id %}">Export as xlsx<a>
