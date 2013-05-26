@@ -18,12 +18,31 @@ class ActiveCampaignManager(models.Manager):
     Manager Campaign filter by Active status
     '''
     def get_query_set(self):
-        return super(ActiveCampaignManager, self).get_query_set() \
-                .filter( startdate__lte=datetime.date.today(), finishdate__gte=datetime.date.today() )
-       
+        return ActiveCampaigns.objects.all()       
+
+    
+
 
 
 class Campaign(models.Model):
+    nodes_index_name = 'clientpart_campaign'
+    contact_relationship = 'CONTACT'
+    ACCEPTED_RELATION = 'ACCEPTED'
+    
+    class NodeManager:
+        def get(self, id):
+            index = graph_db.get_index(Node, Campaign.nodes_index_name)
+            return index.get('id', str(id))[0]
+        
+        def get_or_none(self, id):
+            try:
+                return self.get(id)
+            except IndexError:
+                return default
+    
+    
+    
+    
     title = models.CharField(max_length=255, default='')
     description = models.TextField(default='')
     client = models.ForeignKey(User, related_name="campaigns")    
@@ -32,20 +51,16 @@ class Campaign(models.Model):
     picture = models.ImageField(upload_to='uploads/campaign_images', max_length=255, null=True, blank=True)
     salary = models.PositiveIntegerField(default=0)
     gift = models.PositiveIntegerField(default=0)
-    was_launched = models.BooleanField(default=False)
-    
-    nodes_index_name = 'clientpart_campaign'
-    contact_relationship = 'CONTACT'
+        
     
     graph_db.get_or_create_index(Node, nodes_index_name)
     
     objects = models.Manager()
     actives = ActiveCampaignManager()
+    nodes = NodeManager()
     
     def get_node(self):
-        index = graph_db.get_index(Node, self.nodes_index_name)
-        return index.get('id', str(self.id))[0]
-        
+        return Campaign.nodes.get(self.id)        
         
         
     def set_contacts(self, profiles):
@@ -63,8 +78,13 @@ class Campaign(models.Model):
         """
         Returns a list of related usernames (str). 
         """
-        logger.warn(tuple(profile_node['username'] for profile_node in self.get_node().get_related_nodes(0, self.contact_relationship)))
         return tuple(profile_node['username'] for profile_node in self.get_node().get_related_nodes(0, self.contact_relationship))
+    
+    def get_accepted_relations(self):
+        """
+        Returns a list of related nodes. 
+        """
+        return self.get_node().get_relationships(0, Campaign.ACCEPTED_RELATION)
         
     
     def save(self, *args, **kwargs):
@@ -82,8 +102,16 @@ class Campaign(models.Model):
         batch = WriteBatch(graph_db)
         node = self.get_node()
         for rel in node.get_relationships():
-            batch.delete_relatioship(rel)
+            batch.delete_relationship(rel)
         batch.delete_node(node)
         super(Campaign, self).delete(*args, **kwargs)
+        
+
+class ActiveCampaigns(Campaign):
+    class Meta:
+        managed=False
+        db_table='view_actives'
+    
+        
     
 

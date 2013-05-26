@@ -29,7 +29,7 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Europe/Minsk'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -102,6 +102,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+
 ROOT_URLCONF = 'curs.urls'
 
 TEMPLATE_DIRS = (
@@ -129,6 +132,7 @@ INSTALLED_APPS = (
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/'
 PUBLIC_UPLOAD_DIR = os.path.join(MEDIA_ROOT, 'uploads')
+ALLOWED_HOSTS = ['subd.demodmitry.net']
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

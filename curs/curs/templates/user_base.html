@@ -9,6 +9,23 @@
 {% endblock %}
 </head>
 <body>
+{% block navbar %}
+<div class="navbar">
+<div class="navbar-inner">
+    <div class="container">
+        <form class="nav pull-right" method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <input value="Log out" class="btn" type="submit" />
+        </form>
+    </div>
+</div>
+</div>
+{% endblock navbar %}
+{% block messages_part %}
+    {% for message in messages %}
+    {{message}}
+    {% endfor %}
+{% endblock %}
 {% block body %}
 {% endblock %}
 </body>

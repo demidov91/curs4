@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from forms import CampaignForm
 from models import Campaign
 from registration.utils import get_profile, clients_only, campaign_owners_only
+from curs.utils import datetime_deserialize
 
 import logging
 logger = logging.getLogger(__name__)
@@ -39,7 +40,11 @@ def create_campaign(request):
         
 @campaign_owners_only(set_key='campaign')        
 def get_contacts_for_campaign(request, campaign):
-    return render(request, 'campaign_contacts_list.html', {'contacts': campaign.get_contacts(), 'campaign': campaign})
+    return render(request, 'campaign_contacts_list.html', {
+        'contacts': campaign.get_contacts(),
+         'campaign': campaign,
+        'accepted': tuple({'username': x.end_node['username'], 'time': datetime_deserialize(x['time'])} for x in campaign.get_accepted_relations()),
+        })
 
 @campaign_owners_only(set_key='campaign')  
 def export_campaign(request, campaign):

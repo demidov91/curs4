@@ -23,6 +23,9 @@ def get_profile(user):
         return Userprofile.index.get(username=user.username)
     except DoesNotExist:
         return None
+    
+def get_profile_node(user):
+    return get_profile(user).__node__
 
            
 def create_connections(owner, recipients):
@@ -76,3 +79,13 @@ class campaign_owners_only:
             del kwargs[self.get_key]
             return view_func(request, *args, **kwargs)
         return wrapper
+    
+    
+def users_only(wrapped):
+    @login_required
+    def wrapper(request, *args, **kwargs):
+        if check_client(request.user):
+            raise PermissionDenied()
+        return wrapped(request, *args, **kwargs)
+    return wrapper    
+    

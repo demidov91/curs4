@@ -1,3 +1,5 @@
+import datetime
+
 import neomodel
 from py2neo import neo4j
 from openpyxl import load_workbook
@@ -10,7 +12,7 @@ from django.conf import settings
 from registration.utils import get_profile, create_connections
 from registration.models import Userprofile
 from  registration.utils import check_client
-
+from define import DATETIME_FORMAT
 import logging
 logger = logging.getLogger(__name__)
 
@@ -60,6 +62,16 @@ class FileEmailParser(AbstractContactsParser):
         logger.warn(self.emails)
         
 graph_db = neo4j.GraphDatabaseService(settings.NEO4J_REST_URL)
+
+
+def messages_context_processor(request):
+    return get_profile(reuqest.user).pull_messages()
+
+def datetime_serialize(date_time):
+    return datetime.datetime.strftime(date_time, DATETIME_FORMAT)
+
+def datetime_deserialize(date_time):
+    return datetime.datetime.strptime(date_time, DATETIME_FORMAT)
             
    
             

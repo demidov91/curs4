@@ -5,4 +5,5 @@ from curs.views import contacts
 
 urlpatterns = patterns('',
     url(r'^(?P<campaign_id>\d+)/$', show_adv, name="show_adv"),
+    url(r'^(?P<campaign_id>\d+)/accept/$', accept_adv, name="accept_adv"),
 )

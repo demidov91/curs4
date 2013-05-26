@@ -21,8 +21,18 @@
     </div>
     {% if contacts %}
     <div class="pull-left">
-        <a class="btn" href="{% url 'export_campaign' campaign_id=campaign.id %}">Export as xlsx<a>
+        <a class="btn" href="{% url 'export_campaign' campaign_id=campaign.id %}">Export as xlsx</a>
     </div>
     {% endif %}
+    <div class="clear"></div>
+</div>
+<div class="accepted-area">
+    {% for contact in accepted %}
+    <div>
+        <div class="pull-left">{{contact.username}}</div><div class="pull-right">{{contact.time}}</div>
+    </div>
+    <div class="clear"></div>
+    {% endfor%}
+    </div>
 </div>
 <div class="clear"></div>

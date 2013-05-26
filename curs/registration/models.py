@@ -33,6 +33,23 @@ class Userprofile(StructuredNode):
     knows = RelationshipTo('Userprofile', 'KNOWS')
     known = RelationshipFrom('Userprofile', 'KNOWS')
     
+    def append_message(self, message):
+        """
+        Add message to the list of user messages.
+        """
+        if self.__node__.get('messages', None):
+            self.__node__['messages'].append(message)
+        else:
+            self.__node__['messages'] = [message]
+            
+    def pull_messages(self):
+        """
+        Get and delete messages.
+        """
+        messages = self.__node__['messages']
+        del self.__node__['messages']
+        
+    
     _create_locks = {}
     _set_client_locks = {}
     
@@ -73,6 +90,7 @@ class Userprofile(StructuredNode):
         
 def after_user_save(instance, created, **kwargs):
     username = getattr(instance, 'username')
+    logger.warn('start saving')
     if username:
         if not email_re.match(username):
             raise ValidationError('Username must be an email.')

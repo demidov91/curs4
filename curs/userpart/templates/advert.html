@@ -1,0 +1,26 @@
+{% extends 'user_base.html' %}
+
+{%block body%}
+<div id="adv">
+    {% if campaign.picture %}
+    <img class="pull-left picture" src="{{campaign.picture.url}}" />
+    {% endif %}
+    <div class="pull-left" class="description">{{campaign.description}}</div>
+    <div class="clear"></div>
+</div>
+<div id="adv-answer">
+    <div>
+    {% if is_accepted%}
+        <p>You have already accepted this proposal.</p>
+    {% else %}
+        <form method="POST" action="{% url "accept_adv" campaign_id=campaign.id %}">
+            {% csrf_token %}
+            <input type="submit" value="Accept {% if campaign.salary%}(Salary: {{campaign.salary}}){% endif %}" class="btn btn-success"/>
+        </form>
+    {% endif%}
+    </div>
+    <div>
+        <a class="btn btn-primary">Share {% if campaign.gift%}(Gift on success: {{campaign.gift}}){% endif %}</a>
+    </div>
+</div>
+{% endblock %}
